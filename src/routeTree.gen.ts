@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as GuidesRouteImport } from './routes/guides'
+import { Route as MapRouteImport } from './routes/map'
 import { Route as NearbyRouteImport } from './routes/nearby'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as QueueRouteImport } from './routes/queue'
@@ -29,6 +30,11 @@ const ContactsRoute = ContactsRouteImport.update({
 const GuidesRoute = GuidesRouteImport.update({
   id: '/guides',
   path: '/guides',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NearbyRoute = NearbyRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contacts': typeof ContactsRoute
   '/guides': typeof GuidesRoute
+  '/map': typeof MapRoute
   '/nearby': typeof NearbyRoute
   '/profile': typeof ProfileRoute
   '/queue': typeof QueueRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contacts': typeof ContactsRoute
   '/guides': typeof GuidesRoute
+  '/map': typeof MapRoute
   '/nearby': typeof NearbyRoute
   '/profile': typeof ProfileRoute
   '/queue': typeof QueueRoute
@@ -68,20 +76,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/contacts': typeof ContactsRoute
   '/guides': typeof GuidesRoute
+  '/map': typeof MapRoute
   '/nearby': typeof NearbyRoute
   '/profile': typeof ProfileRoute
   '/queue': typeof QueueRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contacts' | '/guides' | '/nearby' | '/profile' | '/queue'
+  fullPaths:
+    '/' | '/contacts' | '/guides' | '/map' | '/nearby' | '/profile' | '/queue'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contacts' | '/guides' | '/nearby' | '/profile' | '/queue'
+  to: '/' | '/contacts' | '/guides' | '/map' | '/nearby' | '/profile' | '/queue'
   id:
     | '__root__'
     | '/'
     | '/contacts'
     | '/guides'
+    | '/map'
     | '/nearby'
     | '/profile'
     | '/queue'
@@ -91,6 +102,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactsRoute: typeof ContactsRoute
   GuidesRoute: typeof GuidesRoute
+  MapRoute: typeof MapRoute
   NearbyRoute: typeof NearbyRoute
   ProfileRoute: typeof ProfileRoute
   QueueRoute: typeof QueueRoute
@@ -117,6 +129,13 @@ declare module '@tanstack/react-router' {
       path: '/guides'
       fullPath: '/guides'
       preLoaderRoute: typeof GuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nearby': {
@@ -147,6 +166,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactsRoute: ContactsRoute,
   GuidesRoute: GuidesRoute,
+  MapRoute: MapRoute,
   NearbyRoute: NearbyRoute,
   ProfileRoute: ProfileRoute,
   QueueRoute: QueueRoute,
