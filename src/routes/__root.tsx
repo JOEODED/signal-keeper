@@ -8,9 +8,19 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import {
+  BookOpen,
+  Gauge,
+  IdCard,
+  Inbox,
+  Map as MapIcon,
+  Radar,
+  Users,
+} from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { StatusBar } from "@/components/StatusBar";
 
 function NotFoundComponent() {
   return (
