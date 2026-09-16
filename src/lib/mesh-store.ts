@@ -112,9 +112,10 @@ function rnd(min: number, max: number) {
 
 function makePeers(): Peer[] {
   const count = rnd(3, 6);
+  const pool = [...CALL_SIGNS].sort(() => Math.random() - 0.5);
   return Array.from({ length: count }, (_, i) => ({
     id: `peer-${i}-${rnd(1000, 9999)}`,
-    callSign: CALL_SIGNS[(i + rnd(0, 7)) % CALL_SIGNS.length] ?? "NODE-00",
+    callSign: pool[i] ?? `NODE-${i}`,
     signal: rnd(25, 99),
     distance: rnd(8, 480),
     battery: rnd(11, 98),
@@ -142,6 +143,8 @@ export function hydrate() {
     state = { ...defaultState, peers: makePeers(), online: window.navigator.onLine };
   }
   emit();
+  // Re-emit after hydration settles so every subscriber picks up the state.
+  window.setTimeout(emit, 60);
 
   window.addEventListener("online", () => setState({ online: true }));
   window.addEventListener("offline", () => setState({ online: false }));
