@@ -114,11 +114,11 @@ function makePeers(): Peer[] {
   const count = rnd(3, 6);
   return Array.from({ length: count }, (_, i) => ({
     id: `peer-${i}-${rnd(1000, 9999)}`,
-    callSign: CALL_SIGNS[(i + rnd(0, 7)) % CALL_SIGNS.length],
+    callSign: CALL_SIGNS[(i + rnd(0, 7)) % CALL_SIGNS.length] ?? "NODE-00",
     signal: rnd(25, 99),
     distance: rnd(8, 480),
     battery: rnd(11, 98),
-    status: (["ok", "ok", "needs-help", "responder"] as const)[rnd(0, 3)],
+    status: (["ok", "ok", "needs-help", "responder"] as const)[rnd(0, 3)] ?? "ok",
     lastSeen: Date.now() - rnd(0, 240) * 1000,
   }));
 }
@@ -162,7 +162,7 @@ export function hydrate() {
   window.setInterval(() => {
     const queued = state.messages.find((m) => m.status === "queued");
     if (!queued || state.peers.length === 0) return;
-    const relay = state.peers[rnd(0, state.peers.length - 1)];
+    const relay = state.peers[rnd(0, state.peers.length - 1)] ?? state.peers[0]!;
     setState({
       messages: state.messages.map((m) =>
         m.id === queued.id
