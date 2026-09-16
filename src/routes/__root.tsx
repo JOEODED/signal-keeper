@@ -130,7 +130,7 @@ const NAV = [
   { to: "/", label: "Command", icon: Gauge },
   { to: "/nearby", label: "Nearby", icon: Radar },
   { to: "/queue", label: "Queue", icon: Inbox },
-  { to: "/map", label: "Offline map", icon: Map },
+  { to: "/map", label: "Offline map", icon: MapIcon },
   { to: "/profile", label: "Profile", icon: IdCard },
   { to: "/contacts", label: "Contacts", icon: Users },
   { to: "/guides", label: "Guides", icon: BookOpen },
