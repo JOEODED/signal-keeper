@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as NearbyRouteImport } from './routes/nearby'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as QueueRouteImport } from './routes/queue'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +21,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactsRoute = ContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesRoute = GuidesRouteImport.update({
+  id: '/guides',
+  path: '/guides',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NearbyRoute = NearbyRouteImport.update({
   id: '/nearby',
   path: '/nearby',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QueueRoute = QueueRouteImport.update({
@@ -31,31 +49,50 @@ const QueueRoute = QueueRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contacts': typeof ContactsRoute
+  '/guides': typeof GuidesRoute
   '/nearby': typeof NearbyRoute
+  '/profile': typeof ProfileRoute
   '/queue': typeof QueueRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contacts': typeof ContactsRoute
+  '/guides': typeof GuidesRoute
   '/nearby': typeof NearbyRoute
+  '/profile': typeof ProfileRoute
   '/queue': typeof QueueRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contacts': typeof ContactsRoute
+  '/guides': typeof GuidesRoute
   '/nearby': typeof NearbyRoute
+  '/profile': typeof ProfileRoute
   '/queue': typeof QueueRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/nearby' | '/queue'
+  fullPaths: '/' | '/contacts' | '/guides' | '/nearby' | '/profile' | '/queue'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/nearby' | '/queue'
-  id: '__root__' | '/' | '/nearby' | '/queue'
+  to: '/' | '/contacts' | '/guides' | '/nearby' | '/profile' | '/queue'
+  id:
+    | '__root__'
+    | '/'
+    | '/contacts'
+    | '/guides'
+    | '/nearby'
+    | '/profile'
+    | '/queue'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactsRoute: typeof ContactsRoute
+  GuidesRoute: typeof GuidesRoute
   NearbyRoute: typeof NearbyRoute
+  ProfileRoute: typeof ProfileRoute
   QueueRoute: typeof QueueRoute
 }
 
@@ -68,11 +105,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contacts': {
+      id: '/contacts'
+      path: '/contacts'
+      fullPath: '/contacts'
+      preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides': {
+      id: '/guides'
+      path: '/guides'
+      fullPath: '/guides'
+      preLoaderRoute: typeof GuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nearby': {
       id: '/nearby'
       path: '/nearby'
       fullPath: '/nearby'
       preLoaderRoute: typeof NearbyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/queue': {
@@ -87,7 +145,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactsRoute: ContactsRoute,
+  GuidesRoute: GuidesRoute,
   NearbyRoute: NearbyRoute,
+  ProfileRoute: ProfileRoute,
   QueueRoute: QueueRoute,
 }
 export const routeTree = rootRouteImport
